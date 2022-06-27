@@ -1,0 +1,70 @@
+\documentclass{ctexart}
+
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\title{叙述并证明带皮亚诺余项的泰勒公理}
+\author{作者:吴声炜\\专业:数学与应用数学\ 学号:3210102945}
+
+\begin{document}
+
+\maketitle
+
+这是一个来自微积分领域的问题,如果我们能够用多项式这一类比较简单的函数近似地代替某些复杂的函数去研究它们的某些性态,无疑会带来很大的方便.
+我们已经知道,如果$f(x)$在$x_0$处可微,那么在$x_0$附近就有
+
+\begin{equation}
+  f(x)=f(x_0)+f'(x_0)(x-x_0)+o(x-x_0)\label{001}
+\end{equation}
+
+这意味着当我们在$x=x_0$附近用一次多项式$f(x_0)+f'(x_0)(x-x_0)$近似代替$f(x)$时,其精确度对于$x-x_0$而言只达到一阶,即误差为$(x-x_0)$的高阶无穷小量,为了提高精确读必须考虑用更高次数的多项式作逼近.事实上当$f(x)$在$x_0$处$n$阶可导时,有如下更精确的估计:
+\section{问题描述}
+设$f(x)$在$x_0$处有$n$阶导数则存在$x_0$的一个邻域,对于该邻域中的任一点$x$,成立
+
+\begin{equation}
+  f(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)}{2!}(x-x_0)^2+\cdots+\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n+r_n(x)\label{002}
+\end{equation}
+
+其中余项$r_n(x)$满足
+
+\begin{equation}
+  r_n(x)=o((x-x_0)^n)\label{003}
+\end{equation}
+
+上述公式称为f(x)在$x=x_0$处的带Peano余项的Taylor公式,它的前$n+1$项组成的多项式
+\begin{equation}
+  p_n(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)}{2!}(x-x_0)^2+\cdots+\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n\label{004}
+\end{equation}
+
+称为$f(x)$的$n$次Talyor多项式余项$r_n(x)=o((x-x_0)^n)$称为Peano余项.
+
+\section{证明}
+\begin{proof}
+考虑
+
+\begin{equation}
+  r_n(x)=f(x)-\sum\limits_{k=0}^n\frac{1}{k!}f^{(k)}(x_0)(x-x_0)^k\label{005}
+\end{equation}
+
+只要证明\eqref{003}.显然
+\begin{equation}
+  r_n(x_0)=r'_n(x_0)=r''_n(x_0)=\cdots=r_n^{(n-1)}(x_0)=0\label{006}
+\end{equation}
+
+对\eqref{005}反复使用L'Hospital法则可得
+
+\begin{equation}
+  \begin{split}
+    &\lim_{x\rightarrow x_0}\frac{r_n(x)}{(x-x_0)^n}=\lim_{x\rightarrow x_0}\frac{r'_n(x)}{n(x-x_0)^{(n-1)}}=\lim_{x\rightarrow x_0}\frac{r''_n(x)}{n(n-1)(x-x_0)^{(n-2)}}=\cdots \\
+    &=\lim_{x\rightarrow x_0}\frac{r_n^{(n-1)}(x)}{n(n-1)\cdot\cdots\cdot2(x-x_0)}\\
+    &=\frac{1}{n!}\lim_{x\rightarrow x_0}[\frac{f^{n-1}(x)-f^{(n-1)}(x_0)-f^{(n)}(x_0)(x-x_0)}{(x-x_0)}] \\
+    &=\frac{1}{n!}\lim_{x\rightarrow x_0}[\frac{f^{n-1}(x)-f^{(n-1)}(x_0)}{(x-x_0)}-f^{n}(x_0)]\\
+    &=\frac{1}{n!}[f^{(n)}(x_0)-f^{(n)}(x_0)]=0
+  \end{split}
+\end{equation}
+
+因此\eqref{003}成立
+\end{proof}
+\end{document}
