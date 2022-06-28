@@ -1,0 +1,100 @@
+\documentclass{ctexart}
+
+\usepackage{xltxtra}
+
+
+\title{作业2:脚本中使用函数}
+\author{作者:吴声炜\\专业:数学与应用数学\ 学号:3210102945}
+
+\begin{document}
+
+\maketitle
+
+让我们先来看一个简单的函数示例\verb|example1.sh|
+
+\begin{verbatim}
+#!/bin/sh
+foo(){
+    echo "Function foo is executing"
+}
+echo "script starting"3
+foo
+echo "script ended"
+exit 0    
+\end{verbatim}
+
+运行此脚本将会得到以下结果
+
+\begin{verbatim}
+script starting
+Function foo is executing
+script ending
+\end{verbatim}
+
+从结果可以知道函数\verb|foo|的作用就是在脚本运行到\verb|foo|时,转去执行\verb|foo|中的命令,等到\verb|foo|执行完毕后再执行下一行命令.
+
+显然的,我们必须在使用函数前就已经声明了它,才能够正常使用它.事实上,只要函数声明在使用之前即可,但是为了美观,我们通常会将所有函数声明写在第一个命令执行之前.比如\verb|example2.sh|,它的结果与\verb|example1.sh|是相同的.
+
+\begin{verbatim}
+#!/bin/sh
+echo "script starting"
+foo(){
+    echo "Function foo is executing"
+}
+foo
+echo "script ended"
+exit 0
+\end{verbatim}
+
+在调用函数时,需要注意的是,脚本的位置参数\verb|$*|,\verb|$@|,\verb|$1|,\verb|$2|等都将被函数的参数替代.当函数调用结束时,它们又将恢复到以前的值.比如\verb|example3.sh|
+
+\begin{verbatim}
+#!/bin/sh
+foo(){
+        echo $1
+}
+echo $1
+foo 2
+echo $1
+exit 0
+\end{verbatim}
+
+运行\verb|./example3.sh 1|,其输出如下
+
+\begin{verbatim}
+1
+2
+1
+\end{verbatim}
+
+此外,还可以使用\verb|local|关键字在\verb|shell|函数中声明局部变量.当局部变量与全局变量有相同明称时,它将在函数内部覆盖该变量.例如\verb|example4.sh|
+
+\begin{verbatim}
+#!/bin/sh
+sample_text="global variable"
+foo(){
+    local sample_text="local variable"
+    echo "Function foo is executing"
+    echo $sample_text
+}
+echo "script starting"
+echo $sample_text
+foo
+echo "script ended"
+echo $sample_text
+exit 0
+\end{verbatim}
+
+会得到以下结果
+
+\begin{verbatim}
+script starting
+global variable
+Function foo is executing
+local variable
+script ended
+\end{verbatim}
+
+
+
+\end{document}
